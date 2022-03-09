@@ -1,3 +1,7 @@
+% OA3D_PWA
+% Roberto Plácido Teixeira
+% pwa_ini(): global variables used by the OA3D_PWA programs
+
 function pwa_ini()
 	global gmodlevel = 3;
 	global gmodcode = "PWA-PSIRY";

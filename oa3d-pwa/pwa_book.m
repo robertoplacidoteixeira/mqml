@@ -1,38 +1,38 @@
 % OA3D_PWA
 % Roberto Plácido Teixeira
-% Pwa_book(): inicia o programa
+% Pwa_book(): start writing OA3D_PWA html book
 
 function pwa_book()
-    close all; % fecha todas as janelas
-    clear all; % limpa todas as variáveis
-    axis('off'); % desliga o eixo
-    global gstatus; % cria a variável de estado global
-    gstatus = 0; % inicializa o estado como 0
-    cfg_modini(0); % inicializa a configuração do programa
-    pwa_ini; % iniciliza variáveis globais do programa
-    global gmodcode gmodtit ghtml; % declara variáveis globais para uso no bloco
-    disp(sprintf('> Bem-vindo a <%s: %s>',gmodcode, gmodtit)); % exibe mensagem de boas vindas
-    if (ghtml) % se a configuração do arquivo de saída html estiver habilitada
-        html_open(); % abre o arquivo html
-        html_beg('html'); % inicia o tag html
-        html_beg('head'); % inicia o tag head de cabeçalho
-        pwa_style; % inicia o arquivo de estilo
-        html_end('head'); % finaliza o tag head de cabeçalho
-        html_beg('body'); % inicia o tag body com o conteúdo do livro
-        html_h("1",gmodtit); % inicia o título do livro
-        html_begend('p','normal','Cienzar'); % inicia o parágrafo com o nome do laboratório de ciências
-        html_begend('p','normal','Roberto Teixeira'); % inicia o parágrafo com o nome do autor
-        html_begend('p','normal','Renata Teixeira'); % inicia o parágrafo com o nome do autor
-        html_begend('p','normal','Jasmin Neiva'); % inicia o parágrafo com o nome do autor
+    close all; % close all figures
+    clear all; % clear all variables
+    axis('off'); % turn off axis
+    global gstatus; % global variable to store status
+    gstatus = 0; % 0: not started, 1: started
+    cfg_modini(0); % initialize configuration
+    pwa_ini; % initialize program variables
+    global gmodcode gmodtit ghtml; % use global variables
+    disp(sprintf('> Bem-vindo a <%s: %s>',gmodcode, gmodtit)); % display welcome message
+    if (ghtml) % if html mode is enabled
+        html_open(); % open html file
+        html_beg('html'); % write html header
+        html_beg('head'); % write html head
+        pwa_style; % write html style
+        html_end('head'); % close html head
+        html_beg('body'); % write html body
+        html_h("1",gmodtit); % write html title
+        html_begend('p','normal','Cienzar'); % write html paragraph
+        html_begend('p','normal','Roberto Teixeira'); % write html paragraph
+        html_begend('p','normal','Renata Teixeira'); % write html paragraph
+        html_begend('p','normal','Jasmin Neiva'); % write html paragraph
     end
-    pwa_run; % inicia o programa
-    if (ghtml) % se a configuração do arquivo de saída html estiver habilitada
+    pwa_run; % run program
+    if (ghtml) % if html mode is enabled
         html_script('https://unpkg.com/react@17/umd/react.development.js','crossorigin');
         html_script('https://unpkg.com/react-dom@17/umd/react-dom.development.js','crossorigin');
-        html_end('body'); % finaliza o tag body
-        html_end('html'); % finaliza o tag html
-		html_close; % fecha o arquivo html
-        cfg_modend(true); % finaliza a configuração do programa
+        html_end('body'); % close html body
+        html_end('html'); % close html file
+		html_close; % close html file
+        cfg_modend(true); % close configuration
     end;
-    close; % fecha a janela do programa
+    close; % close program
 end

@@ -1,12 +1,16 @@
+% OA3D_PWA
+% Roberto Plácido Teixeira
+% Pwa_run(): solves the optimal control problem for the OA3D_PWA
+
 function pwa_run() 
-    global Z a0 n nstr l mvalpha vbeta vgamma vlambda vsigma vrho vpsi vxi gmoddesc; % declare global variables
+    global Z a0 n nstr l m valpha vbeta vgamma vlambda vsigma vrho vpsi vxi gmoddesc; % declare global variables
     html_beg('div','class="div-pwa"'); % begin div-pwa
     %ide_infoinputval(gmoddesc,'ENTER',' ','s');
     border = 32; % border for the plot
     accuracy = 100; % accuracy for the plot 
     raster = linspace(-border, border, accuracy); % raster for the plot
     [x, y, z] = ndgrid(raster, raster, raster); % create the grid
-    % conversion Cartesian to spherical coordinates
+    % conversion cartesian to spherical coordinates
     global r = sqrt(x.^2 + y.^2 + z.^2); % radius
     global theta = acos(z ./ r); % theta
     global phi = atan2(y,x); % phi
