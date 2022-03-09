@@ -1,85 +1,91 @@
-function pwa_run()
-    global valpha vbeta vgamma vlambda vsigma vrho vpsi vxi;
-    global gmoddesc;
-    global Z    a0    n    nstr l    m;
-    html_beg('div','class="div-pwa"');
+function pwa_run() 
+    global Z a0 n nstr l mvalpha vbeta vgamma vlambda vsigma vrho vpsi vxi gmoddesc; % declare global variables
+    html_beg('div','class="div-pwa"'); % begin div-pwa
     %ide_infoinputval(gmoddesc,'ENTER',' ','s');
-    border = 32;
-    accuracy = 100;
-    raster = linspace(-border, border, accuracy);
-    [x, y, z] = ndgrid(raster, raster, raster);
+    border = 32; % border for the plot
+    accuracy = 100; % accuracy for the plot 
+    raster = linspace(-border, border, accuracy); % raster for the plot
+    [x, y, z] = ndgrid(raster, raster, raster); % create the grid
     % conversion Cartesian to spherical coordinates
-    global r = sqrt(x.^2 + y.^2 + z.^2);
-    global theta = acos(z ./ r);
-    global phi = atan2(y,x);
-    Z = 1;
-    a0 = 1;
-    nini = 1;
-    nmax = 7;
-    n = nini;
-    psyry_save_cabec_html;
-    while ((n ~= 0) && (n <= nmax))
-        n = ide_inputval('n > 0',ltx_commans(n),'n');
-        if ((n >= nini) && (n <= nmax))
-            valpha = (2 * Z)/(a0 * n);
-            psyry_save_n_html;
-            l = 0;
-            while ((l < n) && (l < 4))
-                l = ide_infoinputval(gmoddesc,sprintf('n = %g e 0 <= l < n. Digite l >= n para encerrar.',n),ltx_commans(l),'n');
-                if (l >= 0) && (l < n)
-                    vbeta = (n - l - 1);
-                    vgamma = (2 * l + 1);
-                    vlambda = (n + l);
-                    vsigma = 1 / factorial(vlambda);
-                    Nrad = sqrt((valpha ^ 3) * factorial(vbeta) / (2 * n * factorial(n + 1)));
-                    vxi = Nrad * vsigma;
-                    html_beg('div','class="div-l"');
-                    psyry_save_l_html;
-                    if (l == 0)
-                        m = 0;
-                    else
-                        m = -l;
+    global r = sqrt(x.^2 + y.^2 + z.^2); % radius
+    global theta = acos(z ./ r); % theta
+    global phi = atan2(y,x); % phi
+    Z = 1; % initialize Z
+    a0 = 1; % initialize a0
+    nini = 1; % initialize nini
+    nmax = 7; % initialize nmax
+    n = nini; % initialize n
+    psyry_save_cabec_html; % save the html header
+    while ((n ~= 0) && (n <= nmax)) % while n is not zero and n is less than or equal to nmax
+        n = ide_inputval('n > 0',ltx_commans(n),'n'); % input n
+        if ((n >= nini) && (n <= nmax)) % if n is greater than or equal to nini and n is less than or equal to nmax
+            valpha = (2 * Z)/(a0 * n); % valpha
+            psyry_save_n_html; % save the html for n
+            l = 0; % initialize l
+            while ((l < n) && (l < 4)) % while l is less than n and l is less than 4
+                l = ide_infoinputval(gmoddesc,
+                    sprintf('n = %g e 0 <= l < n. Digite l >= n para encerrar.',n), ...
+                    ltx_commans(l),'n'); % input l
+                if (l >= 0) && (l < n) % if l is greater than or equal to 0 and l is less than n
+                    vbeta = (n - l - 1); % vbeta
+                    vgamma = (2 * l + 1); % vgamma
+                    vlambda = (n + l); % vlambda
+                    vsigma = 1 / factorial(vlambda); % vsigma
+                    Nrad = sqrt((valpha ^ 3) * factorial(vbeta) / (2 * n * factorial(n + 1))); % Nrad
+                    vxi = Nrad * vsigma; % vxi
+                    html_beg('div','class="div-l"'); % tag div class  div-l
+                    psyry_save_l_html; % save the html for l
+                    if (l == 0) % if l is equal to 0
+                        m = 0; % initialize m
+                    else % if l is not equal to 0
+                        m = -l; % initialize m
+                    end % if l is equal to 0
+                    while (m <= l) % while m is less than or equal to l
+                        pwa_psi; % pwa_psi
+                        pwa_show_wave(1,1,n,l,m); % pwa_show_wave
+                        psyry_save_m_html; % save the html for m
+                        ide_enter(); % enter
+                        m = m + 1; % increment m
                     end
-                    while (m <= l)
-                        pwa_psi;
-                        pwa_show_wave(1,1,n,l,m);
-                        psyry_save_m_html;
-                        ide_enter();
-                        m = m + 1;
-                    end
-                    html_end('div');
-                    l = l + 1
-                end
+                    html_end('div'); % end div
+                    l = l + 1 % increment l
+                end 
             end
-            html_end('div');
-            n = n + 1;
+            html_end('div'); % end div
+            n = n + 1; % increment n
         end
     end
 end
 
+% latex string of Z multiplied by a0
 function fn = ltx_radial_Za
-    global cspc Zstr a0str;
-    fn = ltx_google(["Z=",Zstr,",",cspc,"a_{0}=",a0str],"");
+    global cspc Zstr a0str; % declare global variables
+    fn = ltx_google(["Z=",Zstr,",",cspc,"a_{0}=",a0str],""); % latex expression
 end
 
+% latex string of the radial wave function
 function fn = ltx_radial_psi(pre,R,Y);
     global cpsi cspc cvecR cvecY cvecpsi;
     fn = ltx_google([cvecpsi,cspc,'=',cspc,cvecR,cspc,'.',cspc,cvecY],'');
 end;
 
+% latex string of the radial wave function
 function fn = ltx_radial_alpha(pre,Z,na0,valpha);
     fn = ltx_google([pre,ltx_frac(['2',Z],[na0])],valpha);
 end;
 
+% latex string of the radial beta function 
 function fn = ltx_radial_beta(pre,n,l,vbeta)
     fn = ltx_google([pre,"(",n,"-",l,"","-1)"],vbeta);
 end
 
+% latex string of the radial gamma function
 function fn = ltx_radial_gamma(pre,l,vgamma)
     global cplus;
     fn = ltx_google([pre,'(2',l,cplus,'1)'],vgamma);
 end
 
+% latex string of the radial lambda function
 function fn = ltx_radial_lambda(pre,vbeta,vgamma,vlambda)
     global cplus;
     fn = ltx_google([pre,'(',vbeta,cplus,vgamma,")"],vlambda);
@@ -89,6 +95,7 @@ end
 %    fn = ltx_google([pre,ltx_frac('1',[vlambda,"!"])],vsigma);
 %end
 
+% latex string of the radial sigma function
 function fn = ltx_radial_xi(pre,n,valpha,vbeta,vlambda,vxi)
     global cplus;
     %fn = ltx_sqrt(ltx_frac([valpha,'^{3}',vbeta,'!'],['2',n,'(',n,cplus,'1)!']));
@@ -98,6 +105,7 @@ function fn = ltx_radial_xi(pre,n,valpha,vbeta,vlambda,vxi)
     fn = ltx_google([pre,p1,'.',p2],vxi);
 end
 
+% latex string of the radial N function
 function fn = ltx_radial_rho(pre,valpha,r,vrho)
     fn = ltx_google([pre,valpha,r],vrho);
 end
@@ -112,6 +120,7 @@ end
 %    fn = ltx_google([pre,'f_{lag}(',vbeta,',',vgamma,",",'2',valpha,')'],L);
 %end
 
+% latex string of the radial function
 function fn = ltx_radial(pre,vxi,vrho,l,vbeta,vgamma,res)
     global cmul cplus;
     fn = ltx_google([pre,vxi,'(e^{',ltx_frac(['-',vrho],'2'),'})','(',vrho,')^{',l,'}','f_{lag}(',vbeta,',',vgamma,",",vrho,')'],res);
@@ -121,6 +130,7 @@ function vkappastr = ltx_angular_kappa(mstr)
     vkappastr = ltx_pow('(-1)',mstr);
 end
 
+% latex string of the angular N function
 function fn = ltx_angular_Nang(pre,twostr,lstr,mstr,res)
     global cplus;
     mabs = ["|",mstr,"|"];
@@ -129,10 +139,12 @@ function fn = ltx_angular_Nang(pre,twostr,lstr,mstr,res)
     fn = ltx_google([pre,ltx_sqrt([p1,'.',p2])],res);
 end
 
+% latex string of the angular tau function
 function fn = ltx_angular_tau(m,twostr,lstr,mstr)
     fn = [ltx_sqrt('2'),ltx_pow('(-1)',mstr)];
 end
 
+% latex string of the angular sigma function
 function fn = ltx_angular_sigma(pre,m,lstr,mstr,res)
     if (m < 0)
         mabs = ["|",mstr,"|"];
@@ -144,6 +156,7 @@ function fn = ltx_angular_sigma(pre,m,lstr,mstr,res)
         '.f_{leg}(',lstr,',',mabs,',cos($vec$theta))'],res);
 end
 
+% latex string of the angular function
 function fn = ltx_angular_cabec(m,mstr)
     global ckappa ctau cY cvecsigma;
 
@@ -160,6 +173,7 @@ function fn = ltx_angular_cabec(m,mstr)
     fn = ltx_google([aux],"");
 end
 
+% latex string of the angular function
 function fn = ltx_angular(pre,m,mstr,lstr,Nangstr,res)
     global csigma cY;
     if (m == 0)
@@ -172,6 +186,7 @@ function fn = ltx_angular(pre,m,mstr,lstr,Nangstr,res)
     fn = ltx_google([pre,'f_{',cY,'}(',lstr,',',mstr,',$vec$theta,$vec$phi)=',aux],res);
 end
 
+% latex string of the angular final function
 function fn = ltx_angular_final(m)
     global csigma Nang;
     if (m == 0)
@@ -189,11 +204,13 @@ function fn = ltx_angular_final(m)
     fn = ltx_google(aux,'');
  end
 
+% latex string of number with point converted to comma
 function commans = ltx_commans(num)
     commans = strrep(num2str(num),".",",");
 end
 
-function hequation (s1,numeq)
+% write the numbered equation to the html-file
+function hequation (s1,numeq) 
     if nargin < 2
         numeq = [];
     end
@@ -209,6 +226,7 @@ function hequation (s1,numeq)
     html_end('table');
 end
 
+% write to the html-file the block of equations used in the calcs 
 function psyry_save_cabec_html
     global hpimg ghtml Z Zstr a0 a0str calpha cbeta cgamma clambda csigma ...
         cvecsigma cxi crho cvecrho cvecr cvecR cY cvecY;
@@ -255,6 +273,7 @@ function psyry_save_cabec_html
     end
 end
 
+% write to the html-file the block of calculated equations of n
 function psyry_save_n_html
     global Z Zstr a0 a0str n nstr ghtml hpimg hpimg2;
     if (ghtml == 1)
@@ -272,6 +291,7 @@ function psyry_save_n_html
     end
 end
 
+% write to the html-file the block of calculated equations of l
 function psyry_save_l_html
     global ghtml;
     if (ghtml == 1)
@@ -307,6 +327,7 @@ function psyry_save_l_html
     end
 end;
 
+% write to the html-file the block of calculated equations of m
 function psyry_save_m_html
     global n l m ghtml hpimg2 Nang cY;
     if (ghtml == 1)
