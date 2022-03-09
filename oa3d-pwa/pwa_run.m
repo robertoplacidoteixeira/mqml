@@ -15,7 +15,7 @@ function pwa_run()
     Z = 1;
     a0 = 1;
     nini = 1;
-    nmax = 2;
+    nmax = 7;
     n = nini;
     psyry_save_cabec_html;
     while ((n ~= 0) && (n <= nmax))
