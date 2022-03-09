@@ -1,18 +1,18 @@
-function scho_lib_pwa_book()
+function pwa_book()
     close all;
     clear all;
     axis('off');
     global gstatus;
     gstatus = 0;
     cfg_modini(0);
-    scho_lib_pwa_ini;
+    pwa_ini;
     global gmodcode gmodtit ghtml;
     disp(sprintf('> Bem-vindo a <%s: %s>',gmodcode, gmodtit));
     if (ghtml)
         html_open();
         html_beg('html');
         html_beg('head');
-        scho_lib_pwa_style;
+        pwa_style;
         html_end('head');
         html_beg('body');
         html_h("1",gmodtit);
@@ -21,7 +21,7 @@ function scho_lib_pwa_book()
         html_begend('p','normal','Renata Teixeira');
         html_begend('p','normal','Jasmin Neiva');
     end
-    scho_lib_pwa_run;
+    pwa_run;
     if (ghtml)
         html_script('https://unpkg.com/react@17/umd/react.development.js','crossorigin');
         html_script('https://unpkg.com/react-dom@17/umd/react-dom.development.js','crossorigin');

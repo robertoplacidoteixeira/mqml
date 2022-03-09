@@ -1,4 +1,4 @@
-function scho_lib_pwa_demo()
+function pwa_demo()
   % plotting hydrogen orbitals, by Peter van Alem
   close all
 

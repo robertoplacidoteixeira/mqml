@@ -1,4 +1,4 @@
-function scho_lib_pwa_show_wave(Z,a,n,l,m)
+function pwa_show_wave(Z,a,n,l,m)
     global psiwave;
     cla(gca);
     axis('on');

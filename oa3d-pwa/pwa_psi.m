@@ -1,11 +1,11 @@
-function scho_lib_pwa_psi()
+function pwa_psi()
     global R Y psiwave;
-    scho_lib_pwa_radial();
-    scho_lib_pwa_angular();
+    pwa_radial();
+    pwa_angular();
     psiwave = R .* Y;
 end
 
-function scho_lib_pwa_radial()
+function pwa_radial()
     if (false)
         global l r valpha vbeta vgamma vrho vxi L R;
         vrho = valpha .* r;
@@ -21,7 +21,7 @@ function scho_lib_pwa_radial()
     end
 end
 
-function scho_lib_pwa_angular()
+function pwa_angular()
     global l m theta phi Y X Nang XNang vomega vkappa;
     % angular part (Condon-Shortley)
     if (true)

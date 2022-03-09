@@ -1,4 +1,4 @@
-function scho_lib_pwa_ini()
+function pwa_ini()
 	global gmodlevel = 3;
 	global gmodcode = "PWA-PSIRY";
 	global gmodtit = "PSI = R . Y";

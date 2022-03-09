@@ -1,4 +1,4 @@
-function scho_lib_pwa_run()
+function pwa_run()
     global valpha vbeta vgamma vlambda vsigma vrho vpsi vxi;
     global gmoddesc;
     global Z    a0    n    nstr l    m;
@@ -41,8 +41,8 @@ function scho_lib_pwa_run()
                         m = -l;
                     end
                     while (m <= l)
-                        scho_lib_pwa_psi;
-                        scho_lib_pwa_show_wave(1,1,n,l,m);
+                        pwa_psi;
+                        pwa_show_wave(1,1,n,l,m);
                         psyry_save_m_html;
                         ide_enter();
                         m = m + 1;
@@ -227,7 +227,7 @@ function psyry_save_cabec_html
         an2 = ltx_angular_cabec(0,"m");
         an3 = ltx_angular_cabec(1,"m");
         rp = ltx_radial_psi;
-        html_tag('p','pwa-equation','A função de ondas é:');
+        html_tag('p','pwa-equation','A funï¿½ï¿½o de ondas ï¿½:');
         hequation(rp,"(I)");
         html_tag('p','pwa-equation','Onde:');
         hequation(rd,"(II)");
@@ -327,7 +327,7 @@ function psyry_save_m_html
             ltx_angular_sigma([cvecsigma,'='],m,'l','m','='), ...
             ltx_angular_sigma("",m,lstr,mstr,''));
         strnlm = sprintf('nlm%g%g%g',n,l,m);
-        html_imgsave(strnlm,''); %sprintf('Gráfico de psi radial e angular de n,l,m = %g%g%g',n,l,m));
+        html_imgsave(strnlm,''); %sprintf('Grï¿½fico de psi radial e angular de n,l,m = %g%g%g',n,l,m));
         html_end('div');
     end
 end
