@@ -1,3 +1,7 @@
+% OA3D_PWA
+% Roberto Plácido Teixeira
+% test script for the OA3D_PWA function
+
 clear all
 border = 32;
 accuracy = 3;

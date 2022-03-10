@@ -1,3 +1,6 @@
+% OA3D_PWA
+% Roberto Plácido Teixeira
+% cfg_modini(): global configuration initialization
 function [islocal] = cfg_modini(local)
     global g_local gstatus;
     if (gstatus == 1)

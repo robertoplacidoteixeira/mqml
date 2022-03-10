@@ -16,3 +16,5 @@ Para executar o projeto carregue o arquivo oa3d_pwa/paw-book.m no editor de arqu
 As imagens dos gráficos calculados serão gravados no diretório oa3d_pwa/output, junto com o arquivo index.html contendo os textos dos orbitais atômicos com  os respectivos links para as imagens.
 
 Observe que o repositório já contem no diretório output os arquivos gerados, executando pwa_book os arquivos serão sobrepostos com os mesmos nomes.
+
+Os arquivos estão com nomes e comentários em inglês como padrão para que possam ser entendidos por mais interessados no tema da Mecânica Quântica com MATLAB.

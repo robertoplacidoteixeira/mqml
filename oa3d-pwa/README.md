@@ -12,7 +12,6 @@ _ pwa_ini: pwa_ini contém a rotina pwa_ini de inicialização das variáveis gl
 _ pwa_demo.m: contém a demonstração simplificada das funções de ondas de schrödinger.
 _pwa_style: contém a rotina pwa_style que cria o arquivo css de estilo do livro-html. 
 
-
 Os arquivos iniciados com o prefixo html_ contêm as rotinas de abertura e fechamento do arquivo index.html e de criação de tags-html.
 
 Os arquivos iniciados com o prefixo ltx_ contêm as rotinas de formação dos scripts de frormulação matemáticas dos cálculos utilizados para a criação de gráficos das equações de ondas de Schrödinger.

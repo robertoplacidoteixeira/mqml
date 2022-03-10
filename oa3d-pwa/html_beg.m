@@ -1,3 +1,7 @@
+% OA3D_PWA
+% Roberto Plácido Teixeira
+% html_beg(): html tag initializator
+
 function html_beg(tagname,atribs)
 	if nargin < 2
 		str = tagname;

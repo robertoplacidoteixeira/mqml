@@ -14,10 +14,10 @@ function pwa_run()
     global r = sqrt(x.^2 + y.^2 + z.^2); % radius
     global theta = acos(z ./ r); % theta
     global phi = atan2(y,x); % phi
-    Z = 1; % initialize Z
-    a0 = 1; % initialize a0
-    nini = 1; % initialize nini
-    nmax = 7; % initialize nmax
+    Z = 1; % value of Z
+    a0 = 1; % value of a0
+    nini = 1; % minimum value of n
+    nmax = 7; % maximum value of n
     n = nini; % initialize n
     psyry_save_cabec_html; % save the html header
     while ((n ~= 0) && (n <= nmax)) % while n is not zero and n is less than or equal to nmax
@@ -130,6 +130,7 @@ function fn = ltx_radial(pre,vxi,vrho,l,vbeta,vgamma,res)
     fn = ltx_google([pre,vxi,'(e^{',ltx_frac(['-',vrho],'2'),'})','(',vrho,')^{',l,'}','f_{lag}(',vbeta,',',vgamma,",",vrho,')'],res);
 end
 
+% latex string of the angular kappa function
 function vkappastr = ltx_angular_kappa(mstr)
     vkappastr = ltx_pow('(-1)',mstr);
 end
